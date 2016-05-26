@@ -5,11 +5,13 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ep.joy.testmvp.R;
 import com.ep.joy.testmvp.model.Bean;
+import com.ep.joy.testmvp.model.TianGou;
 import com.ep.joy.testmvp.presenter.MainPresenter;
 import com.ep.joy.testmvp.view.MainView;
 
@@ -36,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     private Handler mHandler = new Handler();
 
+    private PopupWindow pop;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +51,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mTextView.setText(mMainPresenter.updateUi());
+                mButton.setVisibility(View.GONE);
+                mMainPresenter.updateUi();
             }
         });
 
@@ -64,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     }
 
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -72,8 +78,14 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
-    public void showData(Bean bean) {
-        mTextView.setText(bean.getResults().get(0).toString());
+    public void showData(TianGou bean) {
+        mTextView.setText(bean.toString());
+    }
+
+    @Override
+    public void doOnclick(Bean bean) {
+        mTextView.setText(bean.getResults().get(0).getWho());
+        mButton.setVisibility(View.VISIBLE);
     }
 
 

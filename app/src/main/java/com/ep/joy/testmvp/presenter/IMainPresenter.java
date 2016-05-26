@@ -1,6 +1,7 @@
 package com.ep.joy.testmvp.presenter;
 
 import com.ep.joy.testmvp.model.Bean;
+import com.ep.joy.testmvp.model.TianGou;
 
 /**
  * author   Joy
@@ -8,7 +9,9 @@ import com.ep.joy.testmvp.model.Bean;
  * version:  V1.0
  * Description：链接model
  */
-public interface IMainPresenter {
+public  interface IMainPresenter {
+
+    void loadSuccess(TianGou beanBean);
 
     void loadSuccess(Bean beanBean);
 

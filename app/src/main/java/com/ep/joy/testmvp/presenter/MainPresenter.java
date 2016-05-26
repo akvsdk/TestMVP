@@ -1,7 +1,8 @@
 package com.ep.joy.testmvp.presenter;
 
 import com.ep.joy.testmvp.model.Bean;
-import com.ep.joy.testmvp.model.DoBean;
+import com.ep.joy.testmvp.model.TianGou;
+import com.ep.joy.testmvp.model.imp.DoBean;
 import com.ep.joy.testmvp.view.MainView;
 
 /**
@@ -13,7 +14,6 @@ import com.ep.joy.testmvp.view.MainView;
 public class MainPresenter implements Presenter<MainView>, IMainPresenter {
     private DoBean doBean;
     private MainView mMainView;
-    private Bean mBean;
 
     public MainPresenter(MainView view) {
         attachView(view);
@@ -25,9 +25,9 @@ public class MainPresenter implements Presenter<MainView>, IMainPresenter {
         doBean.loaddate();
     }
 
-    public String updateUi() {
-
-        return mBean.getResults().get(0).getWho();
+    public void updateUi() {
+        mMainView.showProgress();
+        doBean.getGank();
     }
 
 
@@ -43,9 +43,14 @@ public class MainPresenter implements Presenter<MainView>, IMainPresenter {
 
 
     @Override
-    public void loadSuccess(Bean beanBean) {
-        this.mBean = beanBean;
+    public void loadSuccess(TianGou beanBean) {
         mMainView.showData(beanBean);
+        mMainView.hideProgress();
+    }
+
+    @Override
+    public void loadSuccess(Bean beanBean) {
+        mMainView.doOnclick(beanBean);
         mMainView.hideProgress();
     }
 

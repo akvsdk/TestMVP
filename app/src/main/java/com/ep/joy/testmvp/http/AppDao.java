@@ -1,6 +1,7 @@
 package com.ep.joy.testmvp.http;
 
 import com.ep.joy.testmvp.model.Bean;
+import com.ep.joy.testmvp.model.TianGou;
 
 import org.xutils.http.RequestParams;
 import org.xutils.x;
@@ -35,9 +36,13 @@ public class AppDao {
     }
 
 
-    public void getbean(String url, MyCallBack<Bean> callback) {
-        Map<String, String> map = createMap();
-        RequestParams params = new RequestParams(url);
+    public void getbean(MyCallBack<Bean> callback) {
+        RequestParams params = new RequestParams("http://gank.io/api/data/福利/30/1");
+        x.http().get(params, callback);
+    }
+
+    public void getimg(MyCallBack<TianGou> callback) {
+        RequestParams params = new RequestParams("http://www.tngou.net/tnfs/api/news?id=4");
         x.http().get(params, callback);
     }
 }

@@ -1,7 +1,9 @@
-package com.ep.joy.testmvp.model;
+package com.ep.joy.testmvp.model.imp;
 
 import com.ep.joy.testmvp.http.AppDao;
 import com.ep.joy.testmvp.http.MyCallBack;
+import com.ep.joy.testmvp.model.Bean;
+import com.ep.joy.testmvp.model.TianGou;
 import com.ep.joy.testmvp.presenter.IMainPresenter;
 
 /**
@@ -18,9 +20,9 @@ public class DoBean {
     }
 
     public void loaddate() {
-        AppDao.getInstance().getbean("http://gank.io/api/data/Android/30/1", new MyCallBack<Bean>() {
+        AppDao.getInstance().getimg(new MyCallBack<TianGou>() {
             @Override
-            public void onSuccess(Bean result) {
+            public void onSuccess(TianGou result) {
                 mMainPresenter.loadSuccess(result);
             }
 
@@ -30,5 +32,22 @@ public class DoBean {
                 mMainPresenter.loadFailed();
             }
         });
+    }
+
+    public void getGank() {
+        AppDao.getInstance().getbean(new MyCallBack<Bean>() {
+            @Override
+            public void onSuccess(Bean result) {
+                mMainPresenter.loadSuccess(result);
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
+                mMainPresenter.loadFailed();
+            }
+        });
+
     }
 }
